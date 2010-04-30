@@ -6,7 +6,7 @@
 
 	<property file="${basedir}/build.properties"/>
     
-    
+  <!--sei nicht aufgeregt  das ist nur ein kleines Speil -->  
 	<!-- ================================= 
           target: load-ivy         
             this target is not necessary if you put ivy.jar in your ant lib directory
