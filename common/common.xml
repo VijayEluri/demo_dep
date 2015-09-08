@@ -36,7 +36,7 @@
 	
 	<property file="${common.dir}/build.properties"/>
 	
-	<property name="ivy.test.dir" value="${user.home}/Indicee Prep/ivy_play" />
+	<property name="ivy.test.dir" value="${user.home}/Git/mency/ivy_play" />
 	<property name="ivy.demo.dir" value="${ivy.test.dir}/demo-dep" />
 	<property name="build.tools.dir" value="${ivy.demo.dir}/buildtools" />
 	<property name="ivy.jar.dir" value="${build.tools.dir}/jars" />
@@ -88,7 +88,7 @@
     	<!-- the call to resolve is not mandatory, retrieve makes an implicit call if we don't -->
     	<ivy:resolve file="${ivy.file}"/>
     	<ivy:retrieve pattern="${lib.dir}/[artifact].[ext]" />
-        <ivy:report todir="${build.dir}"/>
+<!--       <ivy:report todir="${build.dir}"/> -->  
     </target>
     
     <!-- ================================= 
@@ -128,7 +128,7 @@
 		<tstamp>
 			<format property="now" pattern="yyyyMMddHHmmss"/>
 		</tstamp>
-        <property name="ivy.new.revision" value="${module.version.target}-local-${now}"/>
+        <property name="ivy.new.revision" value="${module.version.target}-SNAPSHOT"/>
     </target>
 	
 	<target name="version" depends="ivy-new-version">
@@ -144,7 +144,7 @@
           target: jar              
          ================================= -->
     <target name="jar" depends="version, compile" description="--> make a jar file for this project">
-        <jar destfile="${jar.file}">
+        <jar destfile="build/${ivy.module}.jar">
             <fileset dir="${classes.dir}" />
             <manifest>
                 <attribute name="Built-By" value="${user.name}"/>
@@ -157,27 +157,45 @@
           target: publish              
          ================================= -->
     <target name="publish" depends="clean-build, jar" description="--> publish this project in the ivy repository">
-    	<ivy:publish artifactspattern="${build.dir}/[artifact].[ext]" 
-    			           resolver="shared"
-    			           pubrevision="${version}" 
-    			           status="release"
-    					   overwrite="true"
-    	/>
+     	 <ivy:publish  
+    		     resolver="shared"
+             pubrevision="${version}" 
+             status="release"
+             overwrite="true"
+        >
+           <artifacts pattern="${build.dir}/[artifact].[ext]" />
+        </ivy:publish>
         <echo message="project ${ant.project.name} released with version ${version}" />
     </target>
 
     <!-- ================================= 
-          target: publish-local              
+          target: publish-artifactory-snapshot           
          ================================= -->
-    <target name="publish-local" depends="local-version, jar" description="--> publish this project in the local ivy repository">
-    	<ivy:publish artifactspattern="${build.dir}/[artifact].[ext]" 
-    			        resolver="local"
-    			        pubrevision="${version}"
-				        pubdate="${now}"
-    			        status="integration"
-    					forcedeliver="true"
-    	/>
-        <echo message="project ${ant.project.name} published locally with version ${version}" />
+    <target name="publish-artifactory-snapshot" depends="local-version, jar, make-pom" description="--> publish this project in the artifactory">
+        <ivy:publish  
+                        resolver="artifactory-snapshot"
+                        pubrevision="${version}"
+                        status="integration"
+                        forcedeliver="true"
+                        overwrite="true"
+                        update="true"
+        >
+
+           <artifacts pattern="${build.dir}/[artifact].[ext]" />
+
+        </ivy:publish>
+        <echo message="project ${ant.project.name} published to artifactory snapshot with version ${version}" />
+    </target>
+
+
+    <!-- ================================= 
+          target: make-pom          
+         ================================= -->
+    <target name="make-pom" depends="local-version, jar" description="--> create pom file for maven compatibility">
+        <ivy:makepom ivyfile="ivy.xml" 
+                     pomfile="${build.dir}/${ivy.module}.pom"  
+        /> 
+        <echo message="project ${ant.project.name} published to artifactory snapshot with version ${version}" />
     </target>
 
 	<!-- ================================= 
