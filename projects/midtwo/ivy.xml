@@ -17,19 +17,17 @@
    under the License.    
 -->
 <ivy-module version="1.0">
-    <info 
-        organisation="org.mency.demo"
-        module="midtwo"
-        status="integration"/>
+    <info organisation="org.mency.demo" module="midtwo"  status="integration"  />
     <configurations>
       <conf name="core"/>
       <conf name="test" extends="core"/>
     </configurations>
     <publications>
-      <artifact name="midtwo" type="jar" conf="core" />
+      <artifact name="midtwo"  type="pom" ext="pom" conf="core" />  
+      <artifact name="midtwo" type="jar" ext="jar" conf="core"/>
     </publications>
     <dependencies>
-      <dependency name="cmptthree" rev="latest.integration" conf="core->core" />    
-	  <dependency org="tomcat" name="tomcat_core" rev="3.3.2" conf="test->default" />
+      <dependency name="cmptthree" rev="latest.integration" conf="core->core" /> 
+      <dependency org="tomcat" name="tomcat_core" rev="3.3.2" conf="test->default" />
     </dependencies>
 </ivy-module>

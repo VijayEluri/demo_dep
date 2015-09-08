@@ -17,19 +17,17 @@
    under the License.    
 -->
 <ivy-module version="1.0">
-    <info 
-        organisation="org.mency.demo"
-        module="midone"
-        status="integration"/>
+    <info organisation="org.mency.demo" module="midone"   status="integration" publication="20150908105430"/>
     <configurations>
       <conf name="core"/>
       <conf name="test" extends="core"/>
     </configurations>
     <publications>
-      <artifact name="midone" type="jar" conf="core" />
+      <artifact name="midone" type="pom" ext="pom" conf="core" />  
+      <artifact name="midone" type="jar" ext="jar" conf="core"/>
     </publications>
     <dependencies>
-      <dependency name="cmptone" rev="latest.integration" conf="core->core" />
-      <dependency name="cmpttwo" rev="latest.integration" conf="core->core" />
+       <dependency name="cmptone" rev="latest.integration" conf="core->core" />
+       <dependency name="cmpttwo" rev="latest.integration" conf="core->core" />
     </dependencies>
 </ivy-module>

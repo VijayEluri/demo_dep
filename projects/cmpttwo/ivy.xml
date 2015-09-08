@@ -17,19 +17,17 @@
    under the License.    
 -->
 <ivy-module version="1.0">
-    <info 
-        organisation="org.mency.demo"
-        module="cmpttwo"
-        status="integration"/>
+    <info organisation="org.mency.demo" module="cmpttwo" status="integration"  />
     <configurations>
       <conf name="core"/>
       <conf name="test" extends="core"/>
     </configurations>
     <publications>
-      <artifact name="cmpttwo" type="jar" conf="core" />
+      <artifact name="cmpttwo"  type="pom" ext="pom" conf="core" />  
+      <artifact name="cmpttwo" type="jar" ext="jar" conf="core"/>
     </publications>
     <dependencies>
-      <dependency org="commons-math" name="commons-math" rev="1.1" conf="core->default" />    
-	  <dependency org="log4j" name="log4j" rev="1.2.14" conf="test->default" />
+      <dependency org="commons-math" name="commons-math" rev="1.1" conf="core->default"/>    
+	  <dependency org="log4j" name="log4j" rev="1.2.14" conf="test->default"/>
     </dependencies>
 </ivy-module>
