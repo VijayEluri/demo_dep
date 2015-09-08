@@ -1,12 +1,11 @@
 <!--
    project: demo-dep
       illustrate from some fake projects how dependencies are satisfied using ivy -->
-<project name="all" default="publish-all" 
+<project name="demo-dep" default="publish-all" 
          xmlns:ivy="antlib:org.apache.ivy.ant">
 
 	<property file="${basedir}/build.properties"/>
     
-  <!--sei nicht aufgeregt  das ist nur ein kleines Speil -->  
 	<!-- ================================= 
           target: load-ivy         
             this target is not necessary if you put ivy.jar in your ant lib directory
@@ -35,6 +34,25 @@
   			description="compile, jar and publish all projects in the right order">
     <subant target="publish" buildpathref="build-path" />
   </target>
+  
+
+
+  <target name="publish-all-local" depends="buildlist" 
+        description="compile, jar and publish all projects in the right order">
+    <subant target="publish-local" buildpathref="build-path" />
+  </target>
+
+  <target name="publish-artifactory" depends="buildlist" 
+        description="compile, jar and publish all projects in the right order">
+    <subant target="publish-artifactory-snapshot" buildpathref="build-path" />
+  </target>
+
+
+  <target name="make-pom-all" depends="buildlist" 
+        description="compile, jar and publish all projects in the right order">
+    <subant target="make-pom" buildpathref="build-path" />
+  </target>
+
 
   <target name="clean-all" depends="buildlist" description="clean all projects">
     <subant target="clean" buildpathref="build-path" />
