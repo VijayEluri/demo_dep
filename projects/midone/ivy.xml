@@ -17,7 +17,7 @@
    under the License.    
 -->
 <ivy-module version="1.0">
-    <info organisation="org.mency.demo" module="midone"   status="integration" publication="20150908105430"/>
+    <info organisation="org.mency.demo" module="midone"   status="integration"  revision="0.3-SNAPSHOT" />
     <configurations>
       <conf name="core"/>
       <conf name="test" extends="core"/>
