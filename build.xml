@@ -35,12 +35,13 @@
     <subant target="publish" buildpathref="build-path" />
   </target>
   
-
+<!--
 
   <target name="publish-all-local" depends="buildlist" 
         description="compile, jar and publish all projects in the right order">
     <subant target="publish-local" buildpathref="build-path" />
   </target>
+-->
 
   <target name="publish-artifactory" depends="buildlist" 
         description="compile, jar and publish all projects in the right order">
@@ -63,6 +64,4 @@
     <delete dir="dropzone-repository"/>
   	<ivy:cleancache />
   </target>
-  
-  
 </project>

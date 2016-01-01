@@ -35,8 +35,8 @@
           target: init-ivy                      
          - - - - - - - - - - - - - - - - - -->
     <target name="init-ivy" depends="load-ivy">
-       	<ivy:settings id="basic.settings"    file="${settings.dir}/ivysettings-basic.xml"/>
-       	<ivy:settings id="advanced.settings" file="${settings.dir}/ivysettings-advanced.xml"/>
+    <!-- 	<ivy:settings id="basic.settings"    file="${settings.dir}/ivysettings-basic.xml"/> -->  
+        	<ivy:settings id="advanced.settings" file="${settings.dir}/ivysettings-advanced.xml"/>
     </target>
 
 	
@@ -47,13 +47,13 @@
          ================================= -->
     <target name="populate" depends="init-ivy" 
     	description="--> install module from maven 2 repository with dependencies">
-    	<ivy:install settingsRef="basic.settings" 
+    	<ivy:install settingsRef="advanced.settings" 
     		organisation="commons-logging" module="commons-logging" revision="*" 
     		from="${from.resolver}" to="${to.resolver}" transitive="true" overwrite="true"/>
-    	<ivy:install settingsRef="basic.settings" 
+    	<ivy:install settingsRef="advanced.settings" 
     		organisation="commons-cli" module="commons-cli" revision="1.0" 
     		from="${from.resolver}" to="${to.resolver}" transitive="true" overwrite="true"/>
-    	<ivy:install settingsRef="basic.settings" 
+    	<ivy:install settingsRef="advanced.settings" 
     		organisation="commons-math" module="commons-math" revision="1.1" 
     		from="${from.resolver}" to="${to.resolver}" transitive="true" overwrite="true"/>
     </target>
@@ -62,7 +62,7 @@
           target: clean-cache
          ================================= -->
     <target name="clean-cache" depends="init-ivy" description="--> clean the cache">
-    	<ivy:cleancache settingsRef="basic.settings" />
+    	<ivy:cleancache settingsRef="advanced.settings" />
     	<ivy:cleancache settingsRef="advanced.settings" />
     	<delete dir="${ivy.cache.dir}" failonerror="true"  />
     </target>
